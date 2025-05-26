@@ -1,1 +1,71 @@
+void main() {
+  runApp(const ToDoList());
+}
 
+class ToDoList extends StatelessWidget {
+  const ToDoList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "ToDo List uyglamam",
+      home: Iskelet(),
+
+    );
+  }
+}
+
+class Iskelet extends StatelessWidget {
+  const Iskelet({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Alışveriş Listesi"),
+      ),
+      body: AnaEkran(),
+    );
+  }
+}
+class AnaEkran extends StatefulWidget {
+  const AnaEkran({super.key});
+
+  @override
+  State<AnaEkran> createState() => _AnaEkranState();
+}
+
+class _AnaEkranState extends State<AnaEkran> {
+  List alisverisListesi = [];
+  TextEditingController t1 = TextEditingController();
+
+  elemanEkle() {
+    setState(() {
+      alisverisListesi.add(t1.text);
+    });
+  }
+
+  elemanCikar() {
+    setState(() {
+      alisverisListesi.remove(t1.text);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          Flexible(child: ListView.builder(itemCount: alisverisListesi.length,
+          itemBuilder:(context,indeksNo)=>ListTile(
+        title:Text (alisverisListesi[indeksNo]),
+        subtitle:Text("alisveris lsitesine eklendi.")
+    ))),
+          TextField(controller: t1,),
+          TextButton(onPressed: elemanEkle, child: Text("ekle")),
+          TextButton(onPressed: elemanCikar, child: Text("cikar")),
+
+        ],
+      ),
+    );
+  }
+}
